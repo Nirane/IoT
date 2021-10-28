@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Dashboard</h1>
+
+    <div class="Row">
+        <div id="chartContainer" class="Column" style="height: 370px; width: 30%;"></div>
+        <div id="chartContainer2" class="Column" style="height: 370px; width: 30%;"></div>
+    </div>
+    <div class="Row">
+        <div id="chartContainer3" class="Column" style="height: 370px; width: 30%;"></div>
+        <div id="chartContainer4" class="Column" style="height: 370px; width: 30%;"></div>
+    </div>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script type="text/javascript" src="~/js/firstChart.js"></script>
+    <script type="text/javascript" src="~/js/secondChart.js"></script>
+    <script type="text/javascript" src="~/js/thirdChart.js"></script>
+    <script type="text/javascript" src="~/js/fourthChart.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {   
+        $.getJSON("/home/GetFirstSensorJSON", addData);
+        $.getJSON("/home/GetFirstSensorJSON", addData2);
+        $.getJSON("/home/GetFirstSensorJSON", addData3);
+        $.getJSON("/home/GetFirstSensorJSON", addData4);
+        }
+    </script>   
+</div>

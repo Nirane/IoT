@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GUI.Models.DataPoint>  
+
+
+<div>
+    <h1 class="display-4">Tables</h1>
+    @* <div> *@
+    @*     <h4>Temperature</h4> *@
+    @* </div> *@
+    <div class="Row">
+      
+        <table class="table Column" style="table-layout: auto; width: 30%;">
+             <tr><th colspan="2">Temperature</th></tr>
+            <tr>
+                <th>Date </th>
+                <th>Value </th>
+            </tr>
+            @foreach (var d in Model)
+            {
+                <tr>
+                    <td>@d.X</td>
+                    <td>@d.Y</td>
+                </tr>
+            }
+        </table>
+        <table class="table table-dark Column" style="table-layout: auto; width: 30%;">
+                <tr><th colspan="2">Humidity</th></tr>
+            <tr>
+                <th>Date </th>
+                <th>Value </th>
+            </tr>
+            @foreach (var d in Model)
+            {
+                <tr>
+                    <td>@d.X</td>
+                    <td>@d.Y</td>
+                </tr>
+            }
+        </table>
+        <table class="table Column" style="table-layout: auto; width: 30%;">
+                <tr><th colspan="2">Pressure</th></tr>
+            <tr>
+                <th>Date </th>
+                <th>Value </th>
+            </tr>
+            @foreach (var d in Model)
+            {
+                <tr>
+                    <td>@d.X</td>
+                    <td>@d.Y</td>
+                </tr>
+            }
+        </table>
+        <table class="table table-dark Column" style="table-layout: auto; width: 30%;">
+                <tr><th colspan="2">Methanol</th></tr>
+            <tr>
+                <th>Date </th>
+                <th>Value </th>
+            </tr>
+            @foreach (var d in Model)
+            {
+                <tr>
+                    <td>@d.X</td>
+                    <td>@d.Y</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
