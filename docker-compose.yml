@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+#    generator:
+#        build: ./generator/
+#        networks:
+#            - api
+    rabbit:
+        image: rabbitmq:management 
+        networks:
+            - api 
+#    database-server:
+#        build: ./database-server/
+#        networks:
+#           - api
+    gui:
+        build: ./GUI/
+        ports:
+            - "80:80"
+        networks:
+            - api
+    postgres:
+        image: postgres:latest
+        restart: always
+        environment:
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: password
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - "8080:8080"
+networks:
+    api:
+        driver: bridge
+
+
+
+    
+
