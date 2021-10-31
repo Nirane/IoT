@@ -6,6 +6,9 @@ services:
 #            - api
     rabbit:
         image: rabbitmq:management 
+        ports:
+            - "15672:15672"
+            - "5672:5672"
         networks:
             - api 
 #    api:
