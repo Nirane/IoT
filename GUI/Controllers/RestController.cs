@@ -23,24 +23,23 @@ namespace WebApplication.Controllers
 
         [FormatFilter]
         [HttpGet("{format}/{sensor}")]
-        public List<Sensor> getData(string format, string sensor)
+        public List<SensorData> getData(string format, string sensor)
         {
             // List<List<Sensor>> data = new List<List<Sensor>>();
 
             switch (sensor)
             {
                 case "Temperature":
-                   return  _apiService.GetTempSensorData();
-                    
+                    return _apiService.GetTempSensorData();
+
                 case "Humidity":
                     return _apiService.GetHumiditySensorData();
-                   
+
                 case "Ethylen":
                     return _apiService.GetEthylenSensorData();
-                   
+
                 case "Pressure":
                     return _apiService.GetPressureSensorData();
-                    
             }
 
             return null;
@@ -49,39 +48,38 @@ namespace WebApplication.Controllers
 
 
         [HttpGet("{format}/{sensor}/avg")]
-        public List<Sensor> getDataAvg(string sensor)
+        public List<SensorData> getDataAvg(string sensor)
         {
+            List<SensorData> avg = new List<SensorData>();
+
             switch (sensor)
             {
                 case "Temperature":
-                    return  _apiService.GetTempSensorData();
-                    
+                    avg = _apiService.GetTempSensorData();
+                    break;
+
                 case "Humidity":
-                    return _apiService.GetHumiditySensorData();
-                   
+                    avg = _apiService.GetHumiditySensorData();
+                    break;
+
                 case "Ethylen":
-                    return _apiService.GetEthylenSensorData();
-                   
+                    avg = _apiService.GetEthylenSensorData();
+                    break;
+
                 case "Pressure":
-                    return _apiService.GetPressureSensorData();
-                    
+                    avg = _apiService.GetPressureSensorData();
+                    break;
             }
 
-            return null;
-            
-            // List<Sensor> dataPoints = new List<Sensor>();
-            //
-            // Random random = new Random();
-            // TimeSpan duration = new TimeSpan(1, 0, 0, 0);
-            // var a = DateTime.Now;
-            // var b = a.AddDays(1);
-            // foreach (int num in Enumerable.Range(1, 50))
-            // {
-            //     b = b.AddDays(1);
-            //     dataPoints.Add(new Sensor(id: "0",1, "1", b, random.NextDouble() * (100 - 1) + 1));
-            // }
-            //
-            // return dataPoints;
+            List<IGrouping<DateTime, SensorData>> groupedSensors = avg.GroupBy(e => e.Date).ToList();
+
+            List<SensorData> flattenList = new List<SensorData>();
+            foreach (IGrouping<DateTime, SensorData> VARIABLE in groupedSensors)
+            {
+                flattenList.Add(new SensorData(id: "0", 1, "Temp", VARIABLE.Key, VARIABLE.Average(e => e.Value)));
+            }
+
+            return flattenList;
         }
     }
 }

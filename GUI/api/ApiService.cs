@@ -10,49 +10,55 @@ namespace GUI.api
 {
     public class ApiService
     {
-        public List<Sensor> GetTempSensorData()
+        public List<SensorData> GetTempSensorData()
         {
-            var responseBody = _makeHttpGet("https://localhost:5001/rest/json/Pressure");
+            var responseBody = _makeHttpGet("http://localhost:5002/sensors/temperature");
 
-            List<Sensor> parsedList = JsonConvert.DeserializeObject<List<Sensor>>(responseBody);
+            List<SensorData> parsedList = JsonConvert.DeserializeObject<List<SensorData>>(responseBody);
 
             return parsedList;
         }
 
-        public List<Sensor> GetHumiditySensorData()
+        public List<SensorData> GetHumiditySensorData()
         {
-            var responseBody = _makeHttpGet("https://localhost:5001/rest/json/Pressure");
+            var responseBody = _makeHttpGet("http://localhost:5002/sensors/humidity");
 
-            List<Sensor> parsedList = JsonConvert.DeserializeObject<List<Sensor>>(responseBody);
+            List<SensorData> parsedList = JsonConvert.DeserializeObject<List<SensorData>>(responseBody);
 
             return parsedList;
         }
 
-        public List<Sensor> GetEthylenSensorData()
+        public List<SensorData> GetEthylenSensorData()
         {
-            var responseBody = _makeHttpGet("https://localhost:5001/rest/json/Pressure");
+            var responseBody = _makeHttpGet("http://localhost:5002/sensors/methanol");
 
-            List<Sensor> parsedList = JsonConvert.DeserializeObject<List<Sensor>>(responseBody);
+            List<SensorData> parsedList = JsonConvert.DeserializeObject<List<SensorData>>(responseBody);
 
             return parsedList;
         }
 
-        public List<Sensor> GetPressureSensorData()
+        public List<SensorData> GetPressureSensorData()
         {
+            
+            var responseBody = _makeHttpGet("http://localhost:5002/sensors/pressure");
+
+            List<SensorData> parsedList = JsonConvert.DeserializeObject<List<SensorData>>(responseBody);
+
+            return parsedList;
             // var responseBody = _makeHttpGet("https://localhost:5001/rest/json/Ethylen");
 
             // List<Sensor> parsedList = JsonConvert.DeserializeObject<List<Sensor>>(responseBody);
 
-            List<Sensor> mock = new List<Sensor>();
-
-            mock.Add(new Sensor(id: "0", sensorId: 1, sensorType: "Temp", date: DateTime.Now,
-                value: Math.Round(random.NextDouble() * (100 - 1) + 1, 2)));
-
-            mock.Add(new Sensor(id: "0", sensorId: 1, sensorType: "Temp", date: DateTime.Now.AddDays(1),
-                value: Math.Round(random.NextDouble() * (100 - 1) + 1, 2)));
-
-
-            return mock;
+            // List<SensorData> mock = new List<SensorData>();
+            //
+            // mock.Add(new SensorData(id: "0", sensorId: 1, sensorType: "Temp", date: DateTime.Now,
+            //     value: Math.Round(random.NextDouble() * (100 - 1) + 1, 2)));
+            //
+            // mock.Add(new SensorData(id: "0", sensorId: 1, sensorType: "Temp", date: DateTime.Now.AddDays(1),
+            //     value: Math.Round(random.NextDouble() * (100 - 1) + 1, 2)));
+            //
+            //
+            // return mock;
         }
 
         Random random = new Random();

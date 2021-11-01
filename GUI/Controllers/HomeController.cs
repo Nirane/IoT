@@ -48,7 +48,7 @@ namespace GUI.Controllers
 
             var sensor = _apiService.GetEthylenSensorData();
 
-            List<List<Sensor>> splitedSensors = _splitSensors(sensor);
+            List<List<SensorData>> splitedSensors = _splitSensors(sensor);
 
             return View("Tables", splitedSensors);
         }
@@ -63,9 +63,9 @@ namespace GUI.Controllers
 
             ViewData.Add("NAME", "Temperature");
 
-            List<Sensor> sensor = _apiService.GetTempSensorData();
+            List<SensorData> sensor = _apiService.GetTempSensorData();
 
-            List<List<Sensor>> splitedSensors = _splitSensors(sensor);
+            List<List<SensorData>> splitedSensors = _splitSensors(sensor);
 
             return View("Tables", splitedSensors);
         }
@@ -80,7 +80,7 @@ namespace GUI.Controllers
 
             var sensor = _apiService.GetHumiditySensorData();
 
-            List<List<Sensor>> splitedSensors = _splitSensors(sensor);
+            List<List<SensorData>> splitedSensors = _splitSensors(sensor);
 
             return View("Tables", splitedSensors);
         }
@@ -95,18 +95,18 @@ namespace GUI.Controllers
 
             var sensor = _apiService.GetPressureSensorData();
 
-            List<List<Sensor>> splitedSensors = _splitSensors(sensor);
+            List<List<SensorData>> splitedSensors = _splitSensors(sensor);
 
             return View("Tables", splitedSensors);
         }
 
-        public List<List<Sensor>> _splitSensors(List<Sensor> sensor)
+        public List<List<SensorData>> _splitSensors(List<SensorData> sensor)
         {
-            List<IGrouping<int, Sensor>> list = sensor.GroupBy(u => u.SensorId).ToList();
+            List<IGrouping<int, SensorData>> list = sensor.GroupBy(u => u.SensorId).ToList();
 
-            List<List<Sensor>> splitedSensors = new List<List<Sensor>>();
+            List<List<SensorData>> splitedSensors = new List<List<SensorData>>();
 
-            foreach (IGrouping<int, Sensor> sen in list)
+            foreach (IGrouping<int, SensorData> sen in list)
             {
                 splitedSensors.Add(sen.ToList());
             }

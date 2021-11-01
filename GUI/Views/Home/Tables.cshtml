@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<IEnumerable<GUI.Models.Sensor>>  
+﻿@model  IEnumerable<IEnumerable<GUI.Models.SensorData>>  
 
 <meta name="viewport" content="width=device-width"/>
 <div style="overflow:scroll;">
@@ -18,7 +18,7 @@
                 @foreach (var sensor in Model)
                 {
                     <th class="table-dark" style="text-align: center; border-bottom:3px dotted gray">Sensor: </th>
-                    <th class="table-dark" style="text-align: center;  border-right:3px dotted gray; border-bottom:3px dotted gray">@sensor.ElementAt(0).Id </th>
+                    <th class="table-dark" style="text-align: center;  border-right:3px dotted gray; border-bottom:3px dotted gray">@sensor.ElementAt(0).SensorId </th>
                 }
             </tr>
             <tr style=" border-bottom:1px dotted gray">

@@ -9,12 +9,14 @@ services:
 #            - "15672:15672"
 #            - "5672:5672"
 
-#    api:
-#        build: ./api/
-    gui:
-        build: ./GUI/
-        ports:
-            - "80:80"
+    api:
+       build: ./api/
+       ports:
+            - "5002:80"
+    # gui:
+    #     build: ./GUI/
+    #     ports:
+    #         - "80:80"
 
 #    mongo:
 #        image: mongo

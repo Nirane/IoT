@@ -4,28 +4,28 @@ using System.Runtime.Serialization;
 namespace GUI.Models
 {
     [DataContract]
-    public class Sensor
+    public class SensorData
     {
         [DataMember(Name = "id")] public string Id { get; set; }
 
         [DataMember(Name = "sensorId")] public int SensorId { get; set; }
 
-        [DataMember(Name = "sensorType")] public string SensorType { get; set; }
+        [DataMember(Name = "type")] public string type { get; set; }
 
         [DataMember(Name = "date")] public DateTime Date { get; set; }
 
         [DataMember(Name = "value")] public double Value { get; set; }
 
-        public Sensor(string id, int sensorId, string sensorType, DateTime date, double value)
+        public SensorData(string id, int sensorId, string type, DateTime date, double value)
         {
             this.Id = id;
             this.SensorId = sensorId;
-            this.SensorType = sensorType;
+            this.type = type;
             this.Date = date;
             this.Value = value;
         }
 
-        public Sensor()
+        public SensorData()
         {
         }
     }
