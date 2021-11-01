@@ -48,10 +48,13 @@ namespace GUI.Controllers
 
             var sensor = _apiService.GetEthylenSensorData();
 
-            return View("Tables", sensor);
+            List<List<Sensor>> splitedSensors = _splitSensors(sensor);
+
+            return View("Tables", splitedSensors);
         }
 
-        [DisplayName]
+
+        [HttpGet]
         public IActionResult TablesTemp()
         {
             List<string> table = HttpContext.Request.GetDisplayUrl().Split('/').ToList();
@@ -60,9 +63,11 @@ namespace GUI.Controllers
 
             ViewData.Add("NAME", "Temperature");
 
-            var sensor = _apiService.GetTempSensorData();
+            List<Sensor> sensor = _apiService.GetTempSensorData();
 
-            return View("Tables", sensor);
+            List<List<Sensor>> splitedSensors = _splitSensors(sensor);
+
+            return View("Tables", splitedSensors);
         }
 
         public IActionResult TablesHumidity()
@@ -75,7 +80,9 @@ namespace GUI.Controllers
 
             var sensor = _apiService.GetHumiditySensorData();
 
-            return View("Tables", sensor);
+            List<List<Sensor>> splitedSensors = _splitSensors(sensor);
+
+            return View("Tables", splitedSensors);
         }
 
         public IActionResult TablesPressure()
@@ -88,9 +95,24 @@ namespace GUI.Controllers
 
             var sensor = _apiService.GetPressureSensorData();
 
-            return View("Tables", sensor);
+            List<List<Sensor>> splitedSensors = _splitSensors(sensor);
+
+            return View("Tables", splitedSensors);
         }
 
+        public List<List<Sensor>> _splitSensors(List<Sensor> sensor)
+        {
+            List<IGrouping<int, Sensor>> list = sensor.GroupBy(u => u.SensorId).ToList();
+
+            List<List<Sensor>> splitedSensors = new List<List<Sensor>>();
+
+            foreach (IGrouping<int, Sensor> sen in list)
+            {
+                splitedSensors.Add(sen.ToList());
+            }
+
+            return splitedSensors;
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
