@@ -69,20 +69,35 @@ namespace WebApplication.Controllers
                 case "Pressure":
                     avg = _apiService.GetPressureSensorData();
                     break;
-                
             }
 
             if (avg == null) return new List<SensorData>();
-            
-            List<IGrouping<DateTime, SensorData>> groupedSensors = avg.GroupBy(e => e.Date).ToList();
+
+
+            List<SensorData> rawSensorsData = new List<SensorData>();
+            foreach (var sensorData in avg)
+            {
+                rawSensorsData.Add(new SensorData(sensorData.Id, sensorData.SensorId, sensorData.type,
+                    RoundUp(sensorData.Date, TimeSpan.FromSeconds(10)), sensorData.Value));
+            }
+
+            List<IGrouping<DateTime, SensorData>> groupedSensors =rawSensorsData.GroupBy(e => e.Date).ToList();
 
             List<SensorData> flattenList = new List<SensorData>();
-            foreach (IGrouping<DateTime, SensorData> VARIABLE in groupedSensors)
+            foreach (IGrouping<DateTime, SensorData> sensorData in groupedSensors)
             {
-                flattenList.Add(new SensorData(id: "0", 1, "Temp", VARIABLE.Key, VARIABLE.Average(e => e.Value)));
+                flattenList.Add(new SensorData(id: "0", 1, "Temp", RoundUp(sensorData.Key, TimeSpan.FromSeconds(10)),
+                    sensorData.Average(e => e.Value)));
             }
 
             return flattenList;
+        }
+
+        public static DateTime RoundUp(DateTime dt, TimeSpan d)
+        {
+            var modTicks = dt.Ticks % d.Ticks;
+            var delta = modTicks != 0 ? d.Ticks - modTicks : 0;
+            return new DateTime(dt.Ticks + delta, dt.Kind);
         }
     }
 }

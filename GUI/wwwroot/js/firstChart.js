@@ -27,7 +27,7 @@
         data: [{
             type: "line",
             yValueFormatString: "#,##0.## °",
-            xValueFormatString: "MMM DD YYYY",
+            xValueFormatString: "MMM DD hh mm ss",
             dataPoints: dataPoints
         }]
     });
