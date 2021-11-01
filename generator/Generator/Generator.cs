@@ -118,7 +118,7 @@ class Generator
                     }         
                 }
             }catch{
-                Console.WriteLine("Connection with Rabbit not established yet. Will try again in a moment...");
+
             }
         }
 
