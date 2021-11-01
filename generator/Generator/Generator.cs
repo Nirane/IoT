@@ -86,6 +86,7 @@ class Generator
         // sending data to queue
         while(true){
             try{
+                System.Threading.Thread.Sleep(10000);  
                 var factory = new ConnectionFactory()
                     {
                         HostName = "rabbit"
@@ -114,11 +115,11 @@ class Generator
                                                 basicProperties: null,
                                                 body: body);
                         }   
-                        System.Threading.Thread.Sleep(999);    
+                        System.Threading.Thread.Sleep(1000);    
                     }         
                 }
             }catch{
-                Console.WriteLine("Connection with Rabbit not established yet. Will try again in a moment...");
+
             }
         }
 

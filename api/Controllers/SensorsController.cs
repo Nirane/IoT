@@ -40,7 +40,7 @@ namespace api.Controllers
         [HttpGet("methanol")]
         public ActionResult<List<SensorData>> GetMethanolMeasures(int limit)
         {
-            return _sensorService.GetByType("methanol", limit);
+            return _sensorService.GetByType("ethylen", limit);
         }
 
         [HttpGet("temperature")]
