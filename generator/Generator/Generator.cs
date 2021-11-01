@@ -86,7 +86,7 @@ class Generator
         // sending data to queue
         while(true){
             try{
-                System.Threading.Thread.Sleep(999);  
+                System.Threading.Thread.Sleep(10000);  
                 var factory = new ConnectionFactory()
                     {
                         HostName = "rabbit"
