@@ -10,6 +10,9 @@ RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 
+RUN apt-get update
+RUN apt-get install nano 
+
 WORKDIR out
 COPY --from=build api/out ./
 ENTRYPOINT ["dotnet", "api.dll"]

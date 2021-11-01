@@ -3,12 +3,16 @@
 WORKDIR generator
 ADD ./Generator ./
 
+
+
 RUN dotnet restore
 
 RUN dotnet publish -c Release -o out
 
-
 FROM mcr.microsoft.com/dotnet/aspnet AS runtime
+
+RUN apt-get update
+RUN apt-get install nano 
 
 WORKDIR out
 COPY --from=build generator/out ./

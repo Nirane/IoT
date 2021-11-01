@@ -110,7 +110,7 @@ class Generator
                         counter = 1;
                     }
                     foreach(Sensor sensor in sensors){
-                        if(counter % Math.Max((int)60/Math.Max(frequencyDictionary[sensor.SensorType],1),1) != 0){
+                        if(counter % ((60/(frequencyDictionary[sensor.SensorType]+1))+1) != 0){
                             continue;
                         }
 
@@ -170,9 +170,9 @@ class Generator
         PressureSensor.MinValue = (float)o1["PressureSensor"]["MinValue"];
         frequencyDictionary.Add("pressure",(int)o1["PressureSensor"]["Frequency"]);
 
-        MethanolSensor.MaxValue = (float)o1["MethanolSensor"]["MaxValue"];
-        MethanolSensor.MinValue = (float)o1["MethanolSensor"]["MinValue"];
-        frequencyDictionary.Add("ethylen",(int)o1["MethanolSensor"]["Frequency"]);
+        EthylenSensor.MaxValue = (float)o1["EthylenSensor"]["MaxValue"];
+        EthylenSensor.MinValue = (float)o1["EthylenSensor"]["MinValue"];
+        frequencyDictionary.Add("ethylen",(int)o1["EthylenSensor"]["Frequency"]);
         return frequencyDictionary;
     }
 }
