@@ -34,8 +34,8 @@
 
     for (let i = 0; i < data.length; i++) {
         dataPoints.push({
-            x: new Date(data[i].x),
-            y: data[i].y
+            x: new Date(data[i].date),
+            y: data[i].value
         });
     }
     chart.render();
