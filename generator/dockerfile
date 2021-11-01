@@ -1,15 +1,16 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk AS build
 
 WORKDIR generator
-ADD ./ ./
+ADD ./Generator ./
 
 RUN dotnet restore
 
 RUN dotnet publish -c Release -o out
 
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet AS runtime
 
 WORKDIR out
 COPY --from=build generator/out ./
-ENTRYPOINT ["dotnet", "generator.dll"]
+
+ENTRYPOINT ["dotnet", "Generator.dll"]

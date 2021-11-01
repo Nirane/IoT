@@ -94,11 +94,7 @@ class Generator
             //     };
             var factory = new ConnectionFactory()
                 {
-                    UserName = "guest",
-                    Password = "guest",
-                    HostName = "rabbit",
-                    VirtualHost = "rabbit",
-                    Port = 5032
+                    HostName = "rabbit"
                 };
             using(var connection = factory.CreateConnection())
             using(var channel = connection.CreateModel())
