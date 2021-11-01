@@ -84,46 +84,45 @@ class Generator
         List<Sensor> sensors = initializeSensors();        
 
         // sending data to queue
-        if(true){
-            // var factory = new ConnectionFactory()
-            //     {
-            //         UserName = "ncpqouma",
-            //         Password = "7rG2AWH7nDvfoYPdQv2NbEUhkU47tJ0K",
-            //         HostName = "cow-01.rmq2.cloudamqp.com",
-            //         VirtualHost = "ncpqouma"
-            //     };
-            var factory = new ConnectionFactory()
+        while(true){
+            try{
+                var factory = new ConnectionFactory()
+                    {
+                        HostName = "rabbit"
+                    };
+                using(var connection = factory.CreateConnection())
+                using(var channel = connection.CreateModel())
                 {
-                    HostName = "rabbit"
-                };
-            using(var connection = factory.CreateConnection())
-            using(var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: "dotNetProject",
-                                    durable: false,
-                                    exclusive: false,
-                                    autoDelete: false,
-                                    arguments: null);
-                int counter = 0;
-                while(true){
-                    if(++counter == 60){
-                        counter = 1;
-                    }
-                    foreach(Sensor sensor in sensors){
-                        if(counter % ((60/(frequencyDictionary[sensor.SensorType]+1))+1) != 0){
-                            continue;
+                    channel.QueueDeclare(queue: "dotNetProject",
+                                        durable: false,
+                                        exclusive: false,
+                                        autoDelete: false,
+                                        arguments: null);
+                    int counter = 0;
+                    while(true){
+                        if(++counter == 60){
+                            counter = 1;
                         }
+                        foreach(Sensor sensor in sensors){
+                            if(counter % ((60/(frequencyDictionary[sensor.SensorType]+1))+1) != 0){
+                                continue;
+                            }
 
-                        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(sensor));
-                        channel.BasicPublish(exchange: "",
-                                            routingKey: "dotNetProject",
-                                            basicProperties: null,
-                                            body: body);
-                    }   
-                    System.Threading.Thread.Sleep(999);    
-                }         
+                            var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(sensor));
+                            channel.BasicPublish(exchange: "",
+                                                routingKey: "dotNetProject",
+                                                basicProperties: null,
+                                                body: body);
+                        }   
+                        System.Threading.Thread.Sleep(999);    
+                    }         
+                }
+            }catch{
+                Console.WriteLine("Connection with Rabbit not established yet. Will try again in a moment...");
             }
         }
+
+        
     }
 
     private static List<Sensor> initializeSensors()
