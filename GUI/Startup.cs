@@ -2,12 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GUI.api;
+using GUI.Formatter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 
 namespace GUI
 {
@@ -23,7 +27,25 @@ namespace GUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+                options.OutputFormatters.Add(new CsvOutputFormatter());
+                options.FormatterMappings.SetMediaTypeMappingForFormat("csv",
+                    new MediaTypeHeaderValue(MyContentTypes.CSV));
+
+                options.OutputFormatters.Add(new ExcelOutputFormatter());
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xlsx",
+                    new MediaTypeHeaderValue(MyContentTypes.XLSX));
+            });
+
             services.AddControllersWithViews();
+            
+            services.AddHttpContextAccessor();
+            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
+            services.AddScoped<ApiService, ApiService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,10 +71,18 @@ namespace GUI
 
             app.UseEndpoints(endpoints =>
             {
+                // endpoints.MapControllers();
+                
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
+                endpoints.MapControllerRoute(
+                    name: "rest",
+                    pattern: "rest/{format}/{sensor}");
             });
+            
+            
         }
     }
 }

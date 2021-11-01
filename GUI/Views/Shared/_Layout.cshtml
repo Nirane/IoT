@@ -22,7 +22,16 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Tables">Table</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TablesTemp">Table Temperature</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TablesHumidity">Table Humidity</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TablesEthylen">Table Ethylen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TablesPressure">Table Pressure</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="License">License</a>
@@ -34,7 +43,7 @@
 
 
 </header>
-<div class="container">
+<div style="width: 90%; ; margin:0 auto;" >
     <main role="main" class="pb-3">
         @RenderBody()
     </main>

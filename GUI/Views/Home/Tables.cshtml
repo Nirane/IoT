@@ -1,68 +1,61 @@
-﻿@model IEnumerable<GUI.Models.DataPoint>  
+﻿@model  IEnumerable<IEnumerable<GUI.Models.Sensor>>  
 
-
-<div>
-    <h1 class="display-4">Tables</h1>
-    @* <div> *@
-    @*     <h4>Temperature</h4> *@
-    @* </div> *@
+<meta name="viewport" content="width=device-width"/>
+<div style="overflow:scroll;">
+    <h1 class="display-4">Tables : @ViewData["NAME"]</h1>
     <div class="Row">
-      
-        <table class="table Column" style="table-layout: auto; width: 30%;">
-             <tr><th colspan="2">Temperature</th></tr>
-            <tr>
-                <th>Date </th>
-                <th>Value </th>
+        <h5 class="display-7">Download data: </h5>
+        <a href="@ViewData["DOMAIN"]/rest/json/@ViewData["NAME"]" target="_blank" class="aLink">Download JSON</a>
+        <spacer type="horizontal" width="100" height="100"> </spacer>
+        <a href="@ViewData["DOMAIN"]/rest/csv/@ViewData["NAME"]" target="_blank" class="aLink">Download CSV</a>
+        <spacer type="horizontal" width="100" height="100"> </spacer>
+        <a href="@ViewData["DOMAIN"]/rest/xlsx/@ViewData["NAME"]" target="_blank" class="aLink">Download Excel</a>
+    </div>
+    <div class="Row">
+
+        <table>
+            <tr >
+                @foreach (var _ in Model)
+                {
+                    <th class="table-dark" style="text-align: center; border-bottom:3px dotted gray">Sensor: </th>
+                    <th class="table-dark" style="text-align: center;  border-right:3px dotted gray; border-bottom:3px dotted gray">12345 </th>
+                }
             </tr>
-            @foreach (var d in Model)
+            <tr style=" border-bottom:1px dotted gray">
+                @foreach (var _ in Model)
+                {
+                    <th class="table-dark" style="text-align: center">Date</th>
+                    <th class="table-dark" style="text-align: center;  border-right:3px dotted gray">Value </th>
+                }
+            </tr>
+
+            @for (int i = 0; i < Model.ToList().Max(e => e.ToList().Count); i++)
             {
-                <tr>
-                    <td>@d.X</td>
-                    <td>@d.Y</td>
+                <tr style=" border-bottom:1px dotted gray">
+                    @for (int k = 0; k < Model.ToList().Count; k++)
+                    {
+                        @if (k % 2 != 0)
+                        {
+                            <td class="table-dark" style=" text-align: center">
+                                @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Date
+                            </td>
+                            <td class="table-dark" style="padding: 15px; text-align: center; border-right:3px dotted gray">
+                                @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Value
+                            </td>
+                        }
+                        else
+                        {
+                            <td style=" text-align: center">
+                                @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Date
+                            </td>
+                            <td style="padding: 15px; text-align: center; border-right:3px dotted gray">
+                                @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Value
+                            </td>  
+                        }
+                    }
                 </tr>
             }
-        </table>
-        <table class="table table-dark Column" style="table-layout: auto; width: 30%;">
-                <tr><th colspan="2">Humidity</th></tr>
-            <tr>
-                <th>Date </th>
-                <th>Value </th>
-            </tr>
-            @foreach (var d in Model)
-            {
-                <tr>
-                    <td>@d.X</td>
-                    <td>@d.Y</td>
-                </tr>
-            }
-        </table>
-        <table class="table Column" style="table-layout: auto; width: 30%;">
-                <tr><th colspan="2">Pressure</th></tr>
-            <tr>
-                <th>Date </th>
-                <th>Value </th>
-            </tr>
-            @foreach (var d in Model)
-            {
-                <tr>
-                    <td>@d.X</td>
-                    <td>@d.Y</td>
-                </tr>
-            }
-        </table>
-        <table class="table table-dark Column" style="table-layout: auto; width: 30%;">
-                <tr><th colspan="2">Methanol</th></tr>
-            <tr>
-                <th>Date </th>
-                <th>Value </th>
-            </tr>
-            @foreach (var d in Model)
-            {
-                <tr>
-                    <td>@d.X</td>
-                    <td>@d.Y</td>
-                </tr>
-            }
+
         </table>
     </div>
 </div>

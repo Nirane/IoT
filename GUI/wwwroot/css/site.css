@@ -11,6 +11,10 @@ for details on configuring this project to bundle and minify static web assets. 
   display: table-cell;
 }
 
+.th, .td {
+  border-color: #96D4D4;
+}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -20,6 +24,21 @@ a.navbar-brand {
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
+}
+
+.aLink{
+  background-color: white;
+  color: black;
+  border: 2px solid dodgerblue;
+  padding: 7px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.aLink:hover {
+  background-color: dodgerblue;
+  color: white;
 }
 
 .btn-primary {
@@ -44,6 +63,7 @@ html {
     font-size: 16px;
   }
 }
+
 
 .border-top {
   border-top: 1px solid #e5e5e5;
@@ -71,6 +91,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  
 }
 .footer {
   position: absolute;
