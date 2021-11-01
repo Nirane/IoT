@@ -12,50 +12,52 @@
         <a href="@ViewData["DOMAIN"]/rest/xlsx/@ViewData["NAME"]" target="_blank" class="aLink">Download Excel</a>
     </div>
     <div class="Row">
-
-        <table>
-            <tr >
-                @foreach (var sensor in Model)
-                {
-                    <th class="table-dark" style="text-align: center; border-bottom:3px dotted gray">Sensor: </th>
-                    <th class="table-dark" style="text-align: center;  border-right:3px dotted gray; border-bottom:3px dotted gray">@sensor.ElementAt(0).SensorId </th>
-                }
-            </tr>
-            <tr style=" border-bottom:1px dotted gray">
-                @foreach (var _ in Model)
-                {
-                    <th class="table-dark" style="text-align: center">Date</th>
-                    <th class="table-dark" style="text-align: center;  border-right:3px dotted gray">Value </th>
-                }
-            </tr>
-
-            @for (int i = 0; i < Model.ToList().Max(e => e.ToList().Count); i++)
-            {
-                <tr style=" border-bottom:1px dotted gray">
-                    @for (int k = 0; k < Model.ToList().Count; k++)
+        @if (Model.ToList().Count > 0)
+        {
+            <table>
+                <tr >
+                    @foreach (var sensor in Model)
                     {
-                        @if (k % 2 != 0)
-                        {
-                            <td class="table-dark" style=" text-align: center">
-                                @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Date
-                            </td>
-                            <td class="table-dark" style="padding: 15px; text-align: center; border-right:3px dotted gray">
-                                @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Value
-                            </td>
-                        }
-                        else
-                        {
-                            <td style=" text-align: center">
-                                @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Date
-                            </td>
-                            <td style="padding: 15px; text-align: center; border-right:3px dotted gray">
-                                @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Value
-                            </td>  
-                        }
+                        <th class="table-dark" style="text-align: center; border-bottom:3px dotted gray">Sensor: </th>
+                        <th class="table-dark" style="text-align: center;  border-right:3px dotted gray; border-bottom:3px dotted gray">@sensor.ElementAt(0).SensorId </th>
                     }
                 </tr>
-            }
+                <tr style=" border-bottom:1px dotted gray">
+                    @foreach (var _ in Model)
+                    {
+                        <th class="table-dark" style="text-align: center">Date</th>
+                        <th class="table-dark" style="text-align: center;  border-right:3px dotted gray">Value </th>
+                    }
+                </tr>
 
-        </table>
+                @for (int i = 0; i < Model.ToList().Max(e => e.ToList().Count); i++)
+                {
+                    <tr style=" border-bottom:1px dotted gray">
+                        @for (int k = 0; k < Model.ToList().Count; k++)
+                        {
+                            @if (k % 2 != 0)
+                            {
+                                <td class="table-dark" style=" text-align: center">
+                                    @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Date
+                                </td>
+                                <td class="table-dark" style="padding: 15px; text-align: center; border-right:3px dotted gray">
+                                    @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Value
+                                </td>
+                            }
+                            else
+                            {
+                                <td style=" text-align: center">
+                                    @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Date
+                                </td>
+                                <td style="padding: 15px; text-align: center; border-right:3px dotted gray">
+                                    @Model.ToList().ElementAtOrDefault(k).ToList().ElementAtOrDefault(i).Value
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+
+            </table>
+        }
     </div>
 </div>

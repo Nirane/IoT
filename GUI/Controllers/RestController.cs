@@ -42,7 +42,7 @@ namespace WebApplication.Controllers
                     return _apiService.GetPressureSensorData();
             }
 
-            return null;
+            return new List<SensorData>();
             // return data.SelectMany(x => x).ToList();
         }
 
@@ -69,8 +69,11 @@ namespace WebApplication.Controllers
                 case "Pressure":
                     avg = _apiService.GetPressureSensorData();
                     break;
+                
             }
 
+            if (avg == null) return new List<SensorData>();
+            
             List<IGrouping<DateTime, SensorData>> groupedSensors = avg.GroupBy(e => e.Date).ToList();
 
             List<SensorData> flattenList = new List<SensorData>();

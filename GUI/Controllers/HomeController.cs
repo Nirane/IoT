@@ -79,7 +79,7 @@ namespace GUI.Controllers
             ViewData.Add("NAME", "Humidity");
 
             var sensor = _apiService.GetHumiditySensorData();
-
+            
             List<List<SensorData>> splitedSensors = _splitSensors(sensor);
 
             return View("Tables", splitedSensors);
@@ -102,6 +102,8 @@ namespace GUI.Controllers
 
         public List<List<SensorData>> _splitSensors(List<SensorData> sensor)
         {
+            if(sensor == null || sensor.FirstOrDefault() == null) return  new List<List<SensorData>>();
+            
             List<IGrouping<int, SensorData>> list = sensor.GroupBy(u => u.SensorId).ToList();
 
             List<List<SensorData>> splitedSensors = new List<List<SensorData>>();
