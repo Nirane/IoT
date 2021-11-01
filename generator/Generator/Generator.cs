@@ -61,13 +61,13 @@ class PressureSensor : Sensor{
     public override float Value { get{ return (float)Math.Round(rand.NextDouble() * (MaxValue - MinValue) + MinValue, 1);} }
 }
 
-class MethanolSensor : Sensor{
+class EthylenSensor : Sensor{
     public static float MaxValue = 0.0f;
     public static float MinValue = 2.0f;
 
-    public MethanolSensor(int id){
+    public EthylenSensor(int id){
         this.SensorId = id;
-        this.SensorType = "methanol";
+        this.SensorType = "ethylen";
     }
 
     public override float Value { get{ return (float)Math.Round(rand.NextDouble() * (MaxValue - MinValue) + MinValue, 3);} }
@@ -107,10 +107,10 @@ class Generator
                 int counter = 0;
                 while(true){
                     if(++counter == 60){
-                        counter = 0;
+                        counter = 1;
                     }
                     foreach(Sensor sensor in sensors){
-                        if(counter % (60/frequencyDictionary[sensor.SensorType]) != 0){
+                        if(counter % Math.Max((int)60/Math.Max(frequencyDictionary[sensor.SensorType],1),1) != 0){
                             continue;
                         }
 
@@ -142,7 +142,7 @@ class Generator
                     s = new PressureSensor(i); 
                     break;
                 case 3:
-                    s = new MethanolSensor(i); 
+                    s = new EthylenSensor(i); 
                     break;
             }
             if(s != null){
@@ -172,7 +172,7 @@ class Generator
 
         MethanolSensor.MaxValue = (float)o1["MethanolSensor"]["MaxValue"];
         MethanolSensor.MinValue = (float)o1["MethanolSensor"]["MinValue"];
-        frequencyDictionary.Add("methanol",(int)o1["MethanolSensor"]["Frequency"]);
+        frequencyDictionary.Add("ethylen",(int)o1["MethanolSensor"]["Frequency"]);
         return frequencyDictionary;
     }
 }
