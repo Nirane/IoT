@@ -3,10 +3,10 @@
 }
 
 
-
 <div class="text-center">
     <h1 class="display-4">Dashboard</h1>
-
+   
+    <br/>
     <div class="Row">
         <div id="chartContainer" class="Column" style="height: 370px; width: 30%;"></div>
         <div id="chartContainer2" class="Column" style="height: 370px; width: 30%;"></div>
@@ -15,6 +15,8 @@
         <div id="chartContainer3" class="Column" style="height: 370px; width: 30%;"></div>
         <div id="chartContainer4" class="Column" style="height: 370px; width: 30%;"></div>
     </div>
+  
+
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
@@ -25,10 +27,10 @@
     <script type="text/javascript" src="~/js/fourthChart.js"></script>
     <script type="text/javascript">
         window.onload = function () {   
-        $.getJSON("/home/GetFirstSensorJSON", addData);
-        $.getJSON("/home/GetFirstSensorJSON", addData2);
-        $.getJSON("/home/GetFirstSensorJSON", addData3);
-        $.getJSON("/home/GetFirstSensorJSON", addData4);
+        $.getJSON("rest/json/Temperature/avg", addData);
+        $.getJSON("rest/json/Humidity/avg", addData2);
+        $.getJSON("rest/json/Ethylene/avg", addData3);
+        $.getJSON("rest/json/Pressure/avg", addData4);
         }
-    </script>   
+    </script>
 </div>

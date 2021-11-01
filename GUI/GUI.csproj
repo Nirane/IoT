@@ -5,6 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="DocumentFormat.OpenXml" Version="2.14.0" />
+      <PackageReference Include="Kephas.Serialization.NewtonsoftJson" Version="10.0.1" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
