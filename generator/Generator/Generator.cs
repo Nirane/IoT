@@ -115,7 +115,7 @@ class Generator
                                                 basicProperties: null,
                                                 body: body);
                         }   
-                        System.Threading.Thread.Sleep(999);    
+                        System.Threading.Thread.Sleep(1000);    
                     }         
                 }
             }catch{
